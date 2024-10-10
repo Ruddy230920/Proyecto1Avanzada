@@ -24,7 +24,7 @@ namespace Proyecto1Avanzada.DTO.Mapping
             JOIN 
                 Suppliers s ON p.SupplierID = s.SupplierID
             WHERE
-                p.ProductID =ProductID";
+                p.ProductID =@ProductID";
             return query;
         }
         public static string GetProducts() 

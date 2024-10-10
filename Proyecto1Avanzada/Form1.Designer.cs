@@ -98,6 +98,7 @@ namespace Proyecto1Avanzada
             button3.TabIndex = 2;
             button3.Text = "Borrar";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
@@ -144,7 +145,7 @@ namespace Proyecto1Avanzada
             ResumeLayout(false);
         }
 
-       
+
 
         #endregion
 

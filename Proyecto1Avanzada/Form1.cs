@@ -1,16 +1,19 @@
 using Microsoft.Extensions.DependencyInjection;
 using Proyecto1Avanzada.DTO;
 using Proyecto1Avanzada.Repositories;
+using Proyecto1Avanzada.Services;
 
 namespace Proyecto1Avanzada
 {
     public partial class Form1 : Form
 
     {
+        private readonly IProductsServices _productsService;
         private readonly IServiceProvider _serviceProvider;
         private readonly IProductsRepository _productsRepository;
-        public Form1(IProductsRepository productsRepository, IServiceProvider serviceProvider)
+        public Form1(IProductsRepository productsRepository, IServiceProvider serviceProvider, IProductsServices productsServices)
         {
+
             _serviceProvider = serviceProvider;
             _productsRepository = productsRepository;
             InitializeComponent();
@@ -65,5 +68,20 @@ namespace Proyecto1Avanzada
         {
             dataGridView1.DataSource = _productsRepository.GetAllProducts();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+
+                var filaSeleccionada = (ProductsDTO)dataGridView1.SelectedRows[0].DataBoundItem;
+
+                if (filaSeleccionada != null)
+
+                _productsService.Delete(filaSeleccionada);
+
+            }
+        }
     }
 }
+

@@ -1,4 +1,5 @@
 ﻿using Proyecto1Avanzada.DTO;
+using Proyecto1Avanzada.Models;
 using Proyecto1Avanzada.Services;
 using System;
 using System.Collections.Generic;
@@ -33,21 +34,21 @@ namespace Proyecto1Avanzada
             var suppliers = _suppliersService.GetAllSuppliers();
 
             if (productsID > 0)
-            { 
-                var products=_productsService.GetProductsById(productsID);
+            {
+                var products = _productsService.GetProductsById(productsID);
                 txtNombreP.Text = products.ProductName;
                 txtCantidadUnidad.Text = products.QuantityPerUnit;
-                txtPrecioUnidad.Text = products.UnitPrice.ToString ();
-                txtUnidadPedido.Text= products.UnitPrice.ToString();
-                txtUnidadStock.Text= products.UnitsInStock.ToString();
+                txtPrecioUnidad.Text = products.UnitPrice.ToString();
+                txtUnidadPedido.Text = products.UnitsOnOrder.ToString();
+                txtUnidadStock.Text = products.UnitsInStock.ToString();
                 cmboxCategoriaP.Text = products.CategoryName;
                 cmboxSuplidorP.Text = products.CompanyName;
                 checkBox1.Checked = products.Discontinued;
-                cmboxCategoriaP.Text= products.CategoryID.ToString();
-                cmboxSuplidorP.Text= products.SupplierID.ToString();
+                cmboxCategoriaP.Text = products.CategoryID.ToString();
+                cmboxSuplidorP.Text = products.SupplierID.ToString();
             }
-            
-            
+
+
             if (categories != null && suppliers != null)
             {
                 cmboxCategoriaP.DisplayMember = "CategoryName";
@@ -59,36 +60,47 @@ namespace Proyecto1Avanzada
                 cmboxSuplidorP.DataSource = suppliers;
 
             }
-            
+
         }
 
-        public void ObtenerProducto (int id)
+        public void ObtenerProducto(int id)
         {
             productsID = id;
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            var products = new ProductsDTO
-            {
-                ProductName = txtNombreP.Text,
-                QuantityPerUnit = txtCantidadUnidad.Text,
-                UnitPrice = Convert.ToDecimal(txtPrecioUnidad.Text),
-                UnitsInStock = Convert.ToInt16(txtUnidadStock.Text),
-                UnitsOnOrder = Convert.ToInt16(txtUnidadPedido.Text),
-                CategoryName = cmboxCategoriaP.Text,
-                CategoryID = (int)(cmboxCategoriaP.SelectedValue),
-                SupplierID = (int)(cmboxSuplidorP.SelectedValue),
-                CompanyName = cmboxCategoriaP.Text,
-                Discontinued = checkBox1.Checked
+            
+            
+                var products = new ProductsDTO
+                {
+                    ProductID=this.productsID,
+                    ProductName = txtNombreP.Text,
+                    QuantityPerUnit = txtCantidadUnidad.Text,
+                    UnitPrice = Convert.ToDecimal(txtPrecioUnidad.Text),
+                    UnitsInStock = Convert.ToInt16(txtUnidadStock.Text),
+                    UnitsOnOrder = Convert.ToInt16(txtUnidadPedido.Text),
+                    CategoryName = cmboxCategoriaP.Text,
+                    CategoryID = (int)(cmboxCategoriaP.SelectedValue),
+                    SupplierID = (int)(cmboxSuplidorP.SelectedValue),
+                    CompanyName = cmboxCategoriaP.Text,
+                    Discontinued = checkBox1.Checked
 
 
-            };
+                };
 
-            if (products != null)
-            {
-                _productsService.Add(products);
+                if (products.ProductID == 0)
+                
+                    _productsService.Add(products);
+                else
+
+                    _productsService.Update(products);
+
+               
+            
+                this.Close();
             }
-            this.Close();
+         
+          
         }
     }
-}
+

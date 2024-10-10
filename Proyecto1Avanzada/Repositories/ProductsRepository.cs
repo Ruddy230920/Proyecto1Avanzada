@@ -56,7 +56,7 @@ namespace Proyecto1Avanzada.Repositories
             }
         }
 
-        public ProductsDTO? GetProductsById(int ProductsId)
+        public ProductsDTO? GetProductsById(int ProductId)
         {
 
             using (var connection = _connection.GetConnection())
@@ -64,7 +64,7 @@ namespace Proyecto1Avanzada.Repositories
 
                 connection.Open();
 
-                return connection.QuerySingleOrDefault<ProductsDTO>(MapperProducts.QueryProductsById(), new { ProductsId});
+                return connection.QuerySingleOrDefault<ProductsDTO>(MapperProducts.QueryProductsById(), new { ProductId});
             }
         }
 

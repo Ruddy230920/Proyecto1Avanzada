@@ -34,9 +34,9 @@ namespace Proyecto1Avanzada.Services
             return _productsRepository.GetAllProducts();
         }
 
-        public ProductsDTO GetProductsById(int ProductsId)
+        public ProductsDTO GetProductsById(int ProductId)
         {
-            return _productsRepository.GetProductsById(ProductsId);
+            return _productsRepository.GetProductsById(ProductId);
         }
 
         public void Update(ProductsDTO products)
